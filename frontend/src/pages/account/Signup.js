@@ -58,9 +58,11 @@ export default function Signup() {
                     dispatch(alert('Successfully Created An Account. PLease check your email. We have sent yuo a confirmation email.', 'success', 90000))
                 }
                 
-            }).catch(() => {
+            }).catch((error) => {
                 dispatch(hideLoader())
-                dispatch(alert('Failed To Created An Account', 'danger'))
+                for (let [key, value] of Object.entries(error.response.data)) {
+                    dispatch(alert(`${value}`, 'danger'))
+                }
             })
         } else{
             dispatch(hideLoader())
