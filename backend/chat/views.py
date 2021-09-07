@@ -35,7 +35,8 @@ class ChatView(viewsets.ModelViewSet):
         except Chat.DoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)
         user = request.user
-        if(user == chat.user):
+
+        if(user == chat.user or chat.recipient == user):
             return super().retrieve(request, *args, **kwargs)
         else:
             return Response(status=status.HTTP_404_NOT_FOUND)
