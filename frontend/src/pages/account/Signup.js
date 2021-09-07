@@ -23,6 +23,7 @@ import { hideLoader, showLoader } from '../../redux/loader/actions';
 import axios from 'axios'
 import alert from '../../redux/alert/actions';
 import REACT_APP_API_URL from '../../testurl'
+import { useHistory } from 'react-router';
 
 export default function Signup() {
     const [formData, setformData] = useState({
@@ -33,7 +34,7 @@ export default function Signup() {
     const dispatch = useDispatch()
     const {email, password, re_password} = formData
     const changeFormData = e => setformData({...formData, [e.target.name]: e.target.value})
-
+    const history =  useHistory()
     const onSubmit = async (e) => {
         e.preventDefault()
 
@@ -55,7 +56,8 @@ export default function Signup() {
             .then((response) => {
                 if(response.status == 201){
                     dispatch(hideLoader())
-                    dispatch(alert('Successfully Created An Account. PLease check your email. We have sent yuo a confirmation email.', 'success', 90000))
+                    dispatch(alert('Successfully Created An Account', 'success', 90000))
+                    history.push('/login/')
                 }
                 
             }).catch((error) => {

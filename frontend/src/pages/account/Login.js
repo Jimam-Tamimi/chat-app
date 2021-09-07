@@ -36,9 +36,6 @@ export default function Login() {
 
     const onSubmit = async (e) => {
         e.preventDefault()
-        console.log(checked)
-        console.log(email)
-        console.log(password)
         dispatch(login(email, password, checked))
     }
     
